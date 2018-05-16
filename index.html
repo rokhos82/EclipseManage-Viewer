@@ -1,0 +1,20 @@
+<html ng-app="app.viewer">
+  <head>
+    <title>My AngularJS App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">-->
+    <link rel="stylesheet" href="https://bootswatch.com/4/slate/bootstrap.min.css"
+  </head>
+  <body>
+    <div class="container" ng-controller="viewCtrl as ctrl">
+      <h1>Eclipse Manager Viewer</h1>
+      <div class="card">
+        <pre>
+          {{ctrl.data | json}}
+        </pre>
+      </div>
+    </div>
+    <script src="./data.js"></script>
+    <script src="./viewer.js"></script>
+  </body>
+</html>
