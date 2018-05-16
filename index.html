@@ -8,34 +8,37 @@
   <body>
     <div class="container" ng-controller="viewCtrl as ctrl">
       <h1>Eclipse Manager Viewer</h1>
-      <div class="card mb-2 bg-primary border-primary" ng-repeat="(id,group) in ctrl.groups">
-        <div class="card-header">{{group.d}}</div>
+      <!-- First repeat is for groups -->
+      <div class="card mb-2 bg-dark border-secondary" ng-repeat="(id,group) in ctrl.groups">
+        <div class="card-header text-white">{{group.d}}</div>
         <div class="card-body">
-          <div class="card mb-2" ng-repeat="(pid,proj) in ctrl.filterProjects(group.a)">
+          <!-- Second repeat is for projects.  Needed to use a filter function to get only associated projects. -->
+          <div class="card border-primary mb-2" ng-repeat="(pid,proj) in ctrl.filterProjects(group.a)">
             <div class="card-header">{{proj.d}}</div>
             <div class="card-body">{{proj.i}}</div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item" ng-repeat="task in ctrl.tasks | orderBy: 'b' | filter: pid as results track by $index">{{task | json}}</li>
+              <!-- Third repeat is for tasks.  Needed a simple array filter to get associated tasks. -->
+              <li class="list-group-item text-info" ng-repeat="task in ctrl.tasks | orderBy: 'b' | filter: pid as results track by $index">{{task | json}}</li>
             </ul>
             <div class="card-footer">{{proj | json}}</div>
           </div>
         </div>
         <div class="card-footer">{{group | json}}</div>
       </div>
-      <div class="card p-2">
-        <pre>
-          {{ctrl.groups | json}}
-        </pre>
+      <div class="card border-warning mb-2" ng-init="groupDictShow = false">
+        <div class="card-header text-warning" ng-click="groupDictShow=!groupDictShow">Groups Dictionary (Debug Only)</div>
+        <div class="card-body" ng-show="groupDictShow"><pre>{{ctrl.groups | json}}</pre></div>
+        <div class="card-footer"></div>
       </div>
-      <div class="card p-2">
-        <pre>
-          {{ctrl.projects | json}}
-        </pre>
+      <div class="card border-warning mb-2" ng-init="projDictShow = false">
+        <div class="card-header text-warning" ng-click="projDictShow=!projDictShow">Projects Dictionary (Debug Only)</div>
+        <div class="card-body" ng-show="projDictShow"><pre>{{ctrl.projects | json}}</pre></div>
+        <div class="card-footer"></div>
       </div>
-      <div class="card p-2">
-        <pre>
-          {{ctrl.tasks | json}}
-        </pre>
+      <div class="card border-warning mb-2" ng-init="taskArrayShow = false">
+        <div class="card-header text-warning" ng-click="taskArrayShow=!taskArrayShow">Tasks Array (Debug Only)</div>
+        <div class="card-body" ng-show="taskArrayShow"><pre>{{ctrl.tasks | json}}</pre></div>
+        <div class="card-footer"></div>
       </div>
     </div>
     <script src="./data.js"></script>
