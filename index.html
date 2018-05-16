@@ -16,22 +16,19 @@
           <div class="card border-primary mb-2" ng-repeat="(pid,proj) in ctrl.filterProjects(group.a)">
             <div class="card-header">{{proj.d}}</div>
             <div class="card-body">{{proj.i}}</div>
-            <ul class="list-group list-group-flush">
-              <!-- Third repeat is for tasks.  Needed a simple array filter to get associated tasks. -->
-              <!--
-                d is the title and i is text?
-                o might be UNIX timestamp.
-                s is an array of sub tasks?
-                  d is text?
-                  c is checked?
-                c might be checked?
-              -->
-              <li class="list-group-item text-info" ng-repeat="task in ctrl.tasks | orderBy: 'b' | filter: pid as results track by $index">{{task | json}}</li>
-            </ul>
-            <div class="card-footer">{{proj | json}}</div>
+            <div class="card-body">
+              <div class="card mb-2" ng-repeat="task in ctrl.filterTasks(pid)">
+                <div class="card-header">{{task.d}}</div>
+                <div class="card-body" ng-show="task.i != ''">{{task.i}}</div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item text-white" ng-repeat="sub in task.s">{{sub.d}}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer"></div>
           </div>
         </div>
-        <div class="card-footer">{{group | json}}</div>
+        <div class="card-footer"></div>
       </div>
       <div class="card border-warning mb-2" ng-init="groupDictShow = false">
         <div class="card-header text-warning" ng-click="groupDictShow=!groupDictShow">Groups Dictionary (Debug Only)</div>

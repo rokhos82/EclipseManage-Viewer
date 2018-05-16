@@ -22,6 +22,7 @@
         activate();
 
         $ctrl.filterProjects = filterProjects;
+        $ctrl.filterTasks = filterTasks;
 
         function activate() {
           $ctrl.data = viewerData;
@@ -35,11 +36,21 @@
         function filterProjects(groupId) {
           var result = {};
           angular.forEach($ctrl.projects,function(project,id) {
-            if(project.hasOwnProperty('y') && project.y === groupId) {
+            if(project.hasOwnProperty('y') && project.y === groupId && project.b >= 0) {
               result[id] = project;
             }
           });
           return result;
+        }
+
+        function filterTasks(projectId) {
+          var results = [];
+          angular.forEach($ctrl.tasks,function(task,id) {
+            if(task.hasOwnProperty('x') && task.x === projectId && task.b >= 0) {
+              results.push(task);
+            }
+          });
+          return results;
         }
     }
 })();
