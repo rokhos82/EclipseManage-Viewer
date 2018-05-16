@@ -18,6 +18,14 @@
             <div class="card-body">{{proj.i}}</div>
             <ul class="list-group list-group-flush">
               <!-- Third repeat is for tasks.  Needed a simple array filter to get associated tasks. -->
+              <!--
+                d is the title and i is text?
+                o might be UNIX timestamp.
+                s is an array of sub tasks?
+                  d is text?
+                  c is checked?
+                c might be checked?
+              -->
               <li class="list-group-item text-info" ng-repeat="task in ctrl.tasks | orderBy: 'b' | filter: pid as results track by $index">{{task | json}}</li>
             </ul>
             <div class="card-footer">{{proj | json}}</div>
