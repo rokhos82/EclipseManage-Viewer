@@ -8,9 +8,33 @@
   <body>
     <div class="container" ng-controller="viewCtrl as ctrl">
       <h1>Eclipse Manager Viewer</h1>
-      <div class="card">
+      <div class="card mb-2 bg-primary border-primary" ng-repeat="(id,group) in ctrl.groups">
+        <div class="card-header">{{group.d}}</div>
+        <div class="card-body">
+          <div class="card mb-2" ng-repeat="(pid,proj) in ctrl.filterProjects(group.a)">
+            <div class="card-header">{{proj.d}}</div>
+            <div class="card-body">{{proj.i}}</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" ng-repeat="task in ctrl.tasks | filter: pid track by task.x">{{task | json}}</li>
+            </ul>
+            <div class="card-footer">{{proj | json}}</div>
+          </div>
+        </div>
+        <div class="card-footer">{{group | json}}</div>
+      </div>
+      <div class="card p-2">
         <pre>
-          {{ctrl.data | json}}
+          {{ctrl.groups | json}}
+        </pre>
+      </div>
+      <div class="card p-2">
+        <pre>
+          {{ctrl.projects | json}}
+        </pre>
+      </div>
+      <div class="card p-2">
+        <pre>
+          {{ctrl.tasks | json}}
         </pre>
       </div>
     </div>
